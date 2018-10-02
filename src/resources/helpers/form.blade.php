@@ -24,11 +24,19 @@
 		@endif
 
 		@if ($value['type'] == 'checkbox')
-			@if (isset($value['values']) && count($value['values'] > 0))
+			@if (isset($value['values']) && count($value['values']) > 0)
 				{!! Form::label($value['name'], $value['label'], array('class' => 'col-md-3 col-form-label')) !!} 
-				<div class="col-md-9">
-					checkbox!
-				</div>
+				@foreach ($value['values'] as $input)
+					
+					<div class="form-group">
+						{!! Form::label($input['name'].$input['value'], 'Label:') !!} 
+						{!! Form::checkbox($input['name'], $input['value'], false, [
+							'id'	=> $input['name'].'_'.$input['value']
+						]) !!}
+					</div>
+					
+				@endforeach
+				
 			@endif
 			
 		@endif

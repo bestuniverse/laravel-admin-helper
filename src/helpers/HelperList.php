@@ -9,7 +9,9 @@ class HelperList extends Helper
 {
 	public $fields_list = array();
 	public $datatable = false;
-	public $actions = array();
+	public $actions = array(
+		'view'
+	);
 	public $items_per_page = 20;
 
 	public function render()
@@ -27,7 +29,10 @@ class HelperList extends Helper
 			'actions'	=>	$this->actions
 		);
 
-		return view('adminHelpers::list')->with($vars);
+		if(!$this->view)
+			return view('adminHelpers::list')->with($vars);
+		else
+			return view($this->view)->with($vars);
 	}
 
 

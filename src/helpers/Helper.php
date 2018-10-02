@@ -14,8 +14,16 @@ class Helper
 	public $locale;
 	public $config;
 
+	public $view = false;
+
 	public function getConfig()
 	{
+	}
+
+	public function setConfig($name, $value = false)
+	{
+
+		$this->config[$name] = $value;
 	}
 
 	public function setInstance()

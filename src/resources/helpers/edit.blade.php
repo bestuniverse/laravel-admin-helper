@@ -1,4 +1,17 @@
-{{-- helper edit --}}
+@extends($config['extends'])
+
+@section('footer_styles')
+
+<script>
+	$(document).ready( function () {
+
+	} );
+</script>
+
+@endsection
+
+
+@section($config['section'])
 
 <div class="helper-form">
 		
@@ -10,7 +23,7 @@
 				
 				{!! Form::model($object, ['url' => ['admin/'.$model, $object->id], 'method' => 'put', 'class' => 'form-horizontal col-md-6', 'id' => 'form-id']) !!}
 				
-				@include('admin.helpers.form')
+				@include('adminHelpers::form')
 				
                 {!! Form::close() !!}
 
@@ -19,10 +32,5 @@
 		</div>
 		
 </div>
+@endsection
 
-{{-- 
-<script>
-	$(document).ready( function () {
-
-	} );
-</script> --}}
