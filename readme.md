@@ -1,5 +1,5 @@
 # laravel-admin-helper
-Allow use helpers for list, form and option
+Allow generate list or form(create & edit) with eloquent from Database.
 
 * [Instalation](#instalation)
 * [Use](#use)
