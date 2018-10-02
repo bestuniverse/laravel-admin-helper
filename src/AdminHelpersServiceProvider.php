@@ -13,11 +13,11 @@ class AdminHelpersServiceProvider extends ServiceProvider {
 
     public function boot()
     {
-    	$this->loadViewsFrom(__DIR__.'/resource/helpers/', 'helpers');
+    	$this->loadViewsFrom(__DIR__.'/resources/helpers', 'adminHelpers');
 
-	    $this->publishes([
-	        __DIR__.'/resources/helpers/' => resource_path('views/vendor/admin/helpers'),
-	    ]);
+	    // $this->publishes([
+	    //     __DIR__.'/resources/helpers/' => resource_path('views/vendor/admin/helpers'),
+	    // ]);
     }
 
 

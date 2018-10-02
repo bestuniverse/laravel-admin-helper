@@ -22,13 +22,12 @@ class HelperOptions extends Helper
 			'config'	=>	$this->config
 		);
 
-		return view('admin.helpers.options')->with($vars);
+		return view('adminHelpers::options')->with($vars);
 	}
 
 
 	public function getConfig()
 	{
-		$this->config['datatable'] = $this->datatable;
 		parent::getConfig();
 	}
 }

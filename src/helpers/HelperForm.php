@@ -24,9 +24,9 @@ class HelperForm extends Helper
 		);
 
 		if($this->object)
-			return view('admin.helpers.edit')->with($vars);
+			return view('adminHelpers::edit')->with($vars);
 		else
-			return view('admin.helpers.create')->with($vars);
+			return view('adminHelpers::create')->with($vars);
 	}
 
 

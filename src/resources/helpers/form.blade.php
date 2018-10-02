@@ -24,6 +24,12 @@
 		@endif
 
 		@if ($value['type'] == 'checkbox')
+			@if (isset($value['values']) && count($value['values'] > 0))
+				{!! Form::label($value['name'], $value['label'], array('class' => 'col-md-3 col-form-label')) !!} 
+				<div class="col-md-9">
+					checkbox!
+				</div>
+			@endif
 			
 		@endif
 	</div>
