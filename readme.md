@@ -20,7 +20,7 @@ BestUniverse\AdminHelpers\AdminHelpersServiceProvider::class,
 
 ### Step 2: publish resources
 ```
-php artisan vendor:publish --views
+php artisan vendor:publish
 ```
 
 ## Use

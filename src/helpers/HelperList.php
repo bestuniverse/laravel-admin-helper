@@ -27,7 +27,7 @@ class HelperList extends Helper
 			'actions'	=>	$this->actions
 		);
 
-		return view('vendor.admin-helpers.list')->with($vars);
+		return view('vendor.admin.helpers.list')->with($vars);
 	}
 
 
