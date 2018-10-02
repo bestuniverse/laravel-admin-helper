@@ -1,0 +1,30 @@
+{
+    "name": "bestuniverse/laravel-admin-helper",
+    "description": "Allow use HelperList, HelperForm and HelperOptions",
+    "keywords": ["laravel", "helper", "admin"],
+    "type": "library",
+    "require": {
+        "php": ">=7"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Juraj Potocky",
+            "email": "juraj@potocky.sk"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+             "Bestuniverse\\AdminHelpers\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Bestuniverse\\AdminHelpers\\AdminHelpersServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
+
