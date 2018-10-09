@@ -6,7 +6,7 @@
 			<div class="col-md-9">
 				{!! Form::text($value['name'], null, [
 					'class' => 'form-control',
-					'placeholder' => $value['placeholder']
+					'placeholder' => (isset($value['placeholder']) && $value['placeholder'] ? $value['placeholder'] : '')
 				]) !!}
 			</div>
 		@endif
@@ -17,7 +17,7 @@
 				<div class="col-md-9">
 					{!! Form::textarea($value['name'], null, [
 						'class' => 'form-control rte_autoload',
-						'placeholder' => $value['placeholder'],
+						'placeholder' => (isset($value['placeholder']) && $value['placeholder'] ? $value['placeholder'] : ''),
 						'rows' => $value['rows']
 					]) !!}
 				</div>
@@ -27,12 +27,12 @@
 			@if (isset($value['values']) && count($value['values']) > 0)
 				{!! Form::label($value['name'], $value['label'], array('class' => 'col-md-3 col-form-label')) !!} 
 				@foreach ($value['values'] as $input)
-					
+						
 					<div class="form-group">
-						{!! Form::label($input['name'].$input['value'], 'Label:') !!} 
-						{!! Form::checkbox($input['name'], $input['value'], false, [
-							'id'	=> $input['name'].'_'.$input['value']
-						]) !!}
+						<label>
+							{!! Form::checkbox($value['name'].'[]', $input->id) !!}
+							{{ $input['name'] }}
+						</label>
 					</div>
 					
 				@endforeach
