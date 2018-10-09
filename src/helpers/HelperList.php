@@ -62,33 +62,26 @@ class HelperList extends Helper
 
 
 		// ordering
-		$orderby = Input::get('orderby');
-		$orderway = Input::get('orderway');
+		$orderby = Input::get('orderby', 'id');
+		$orderway = Input::get('orderway', 'asc');
 
-		$params = Input::all();
+		$params = Input::except(array('orderby', 'orderway', 'page'));
+		$params = array_filter($params);
+		unset($params['orderby']);
+		unset($params['orderway']);
 
-		// $user = $user->newQuery();
-	 //    // Search for a user based on their name.
-	 //    if ($request->has('name')) {
-	 //        $user->where('name', $request->input('name'));
-	 //    }
+		if(!$orderby)
+			$orderby = 'id';
+		if(!$orderway)
+			$orderway = 'asc';
 
+		if(isset($params) && count($params)) {
 
-
-		foreach ($params as $param => $value) {
-			if(isset($value) && $value) {
-				$this->instance->where($param, $value);
-			}
-		}
-		// dd($this->instance->where('id_supplier', 4)->get());
-
-		if(isset($orderby) && $orderby) {
-
-			$this->data = $this->instance::orderBy($orderby, $orderway)->paginate($this->items_per_page);
+			$this->data = $this->instance->orderBy($orderby, $orderway)->where($params)->paginate($this->items_per_page);
 
 		} else {
 
-			$this->data = $this->instance::paginate($this->items_per_page);
+			$this->data = $this->instance->orderBy($orderby, $orderway)->paginate($this->items_per_page);
 		}
 		   
 		
