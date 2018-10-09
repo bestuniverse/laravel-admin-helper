@@ -20,7 +20,7 @@
 @section('toolbar')
 	@if (in_array('add', $actions))
 		<div class="add_new">
-			<a href="#" title="Add new "{{ $model }}>
+			<a href="{{ route($model.'.create') }}" title="Add new "{{ $model }}>
 				<i class="livicon" data-name="plus-alt" data-size="50" data-c="#1DA1F2" data-hc="#1DA1F2" data-loop="false"></i>
 	        	<span class="title">Add new {{ $model }}</span>
 			</a>
@@ -37,14 +37,24 @@
 			<div class="card-header clearfix">
 				{{ $title }}
 			</div>
+			
 			<div class="card-body table-responsive">
+				{{-- filter form --}}
+				{!! Form::open(['url' => 'admin/'.$model, 'method' => 'get', 'class' => '', 'id' => 'filter-'.$model.'-form']) !!}
+
 				<table class="{{ $config['datatable'] === true ? "datatable" : "table table-sm table-hover" }}">
 				<thead class="thead-light">
 					<tr>
 						<th></th>
 						@foreach ($list as $input_name => $input)
 							<th>
-								{{ $input['title'] }}
+								@if (isset($input['orderby']) && $input['orderby'])
+									<a href="{{ Request::url() }}?orderby={{ $input_name }}&orderway={{ Request::input('orderway') === 'asc' ? 'desc' : 'asc' }}">
+										{{ $input['title'] }}
+									</a>
+								@else
+									{{ $input['title'] }}
+								@endif
 							</th>
 						@endforeach
 						@if (isset($actions) && count($actions) > 0)
@@ -53,6 +63,22 @@
 						</th>
 						@endif
 					</tr>
+						<tr>
+							<th></th>
+							@foreach ($list as $input_name => $input)
+								<th>
+									{!! Form::text($input_name, Input::get($input_name)) !!}
+								</th>
+							@endforeach
+							<th>
+								{!! Form::submit('submit', ['class' => 'btn btn-primary']) !!}
+								<a href="{{ route($model.'.index') }}" class="btn btn-secondary">Clear</a>
+							</th>
+							
+							{!! Form::hidden('orderby',Input::get('orderby')) !!}
+							{!! Form::hidden('orderway',Input::get('orderway')) !!}
+						
+						</tr>
 				</thead>
 				<tbody>
 					@foreach ($data as $key => $item)
@@ -78,18 +104,26 @@
 
 								{{-- delete --}}
 								@if (in_array('delete', $actions))
-						            {!! Form::open(['url' => ['admin/'.$model, $item->id], 'method' => 'DELETE', 'class' => 'float-left']) !!}
+									
+									{{-- dorobit ajax delete link --}}
+									<a href="#" class="btn btn-danger btn-sm">Delete</a>
+						           {{--  {!! Form::open(['url' => ['admin/'.$model, $item->id], 'method' => 'DELETE', 'class' => 'float-left']) !!}
 						            	{{ Form::hidden('id', $item->id) }}
 						                {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) }}
-						            {{ Form::close() }}
+						            {{ Form::close() }} --}}
 								@endif
 							</td>
 						</tr>
 					@endforeach
 				</tbody>
-			</table>
-			{{ $data->links() }}
+				</table>
+		    {!! Form::close() !!}
+
+
+			{{ $links }}
 			</div>
+		    
+
 		</div>
 		
 	@else

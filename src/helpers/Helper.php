@@ -1,6 +1,7 @@
 <?php
 
 namespace Bestuniverse\AdminHelpers\Helpers;
+use Illuminate\Support\Facades\DB;
 
 
 class Helper 
@@ -11,6 +12,7 @@ class Helper
 	public $model_prefix = 'App\\';
 	public $instance;
 	public $data = array();
+	public $lang;
 	public $locale;
 	public $config;
 
