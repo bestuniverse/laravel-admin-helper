@@ -43,24 +43,6 @@ class HelperList extends Helper
 	public function getItems()
 	{   
 	
-
-		// $this->data = $this->instance::join('product_translations as t', 't.product_id', '=', 'products.id')
-		//     ->where('locale', 'en')
-		//     ->groupBy('products.id')
-		//     ->orderBy('t.name', 'desc')
-		//     ->with('translations')
-		//     ->get();
-
-		// table $this->instance->getTable()
-		// if($this->lang) {
-		// 	$table = $this->instance->getTable();
-		// 	$this->data = DB::table($table)
-		// 		->leftJoin($this->model.'_translations', 'product_id', 'products.id')
-		// 		->select('*')
-		// 		->paginate($this->items_per_page);
-		// }
-
-
 		// ordering
 		$orderby = Input::get('orderby', 'id');
 		$orderway = Input::get('orderway', 'asc');
@@ -69,21 +51,31 @@ class HelperList extends Helper
 		$params = array_filter($params);
 		unset($params['orderby']);
 		unset($params['orderway']);
-
+		if(!isset($params) || count($params) == 0)
+			$params = array();
+		
 		if(!$orderby)
 			$orderby = 'id';
 		if(!$orderway)
 			$orderway = 'asc';
 
-		if(isset($params) && count($params)) {
+		if($this->lang) {
 
-			$this->data = $this->instance->orderBy($orderby, $orderway)->where($params)->paginate($this->items_per_page);
+			$this->data = $this->instance
+				->join($this->model.'_translations as t', $this->model.'s.id', '=', 't.'.$this->model.'_id')  
+			    ->groupBy($this->model.'s.id')
+				->orderBy($orderby, $orderway)
+				->where($params)
+			    ->with('translations')
+				->paginate($this->items_per_page);
 
+			
 		} else {
-
-			$this->data = $this->instance->orderBy($orderby, $orderway)->paginate($this->items_per_page);
+			$this->data = $this->instance
+				->orderBy($orderby, $orderway)
+				->where($params)
+				->paginate($this->items_per_page);
 		}
-		   
 		
  	   $this->links = $this->data->appends(['orderby' => $orderby, 'orderway' => $orderway])->links();
 	}
