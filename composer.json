@@ -4,7 +4,9 @@
     "keywords": ["laravel", "helper", "admin"],
     "type": "library",
     "require": {
-        "php": ">=7"
+        "php": ">=7",
+        "dimsav/laravel-translatable": ">=9.2.0"
+
     },
     "license": "MIT",
     "authors": [

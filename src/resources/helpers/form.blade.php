@@ -2,25 +2,31 @@
 	
 	<div class="form-group row">
 		@if ($value['type'] == 'text')
-			{!! Form::label($value['name'], $value['label'], array('class' => 'col-md-3 col-form-label')) !!} 
-			<div class="col-md-9">
-				{!! Form::text($value['name'], null, [
-					'class' => 'form-control',
-					'placeholder' => (isset($value['placeholder']) && $value['placeholder'] ? $value['placeholder'] : '')
-				]) !!}
-			</div>
+			
+			@if (isset($value['lang']) && $value['lang'])
+				
+				@foreach (config('translatable.locales') as $lang)
+					@include('adminHelpers::inputs.text', ['lang' => $lang])
+				@endforeach
+
+			@else
+				@include('adminHelpers::inputs.text')
+			@endif
+
 		@endif
 
 		@if ($value['type'] == 'textarea')
-			
-				{!! Form::label($value['name'], $value['label'], array('class' => 'col-md-3 col-form-label')) !!} 
-				<div class="col-md-9">
-					{!! Form::textarea($value['name'], null, [
-						'class' => 'form-control rte_autoload',
-						'placeholder' => (isset($value['placeholder']) && $value['placeholder'] ? $value['placeholder'] : ''),
-						'rows' => $value['rows']
-					]) !!}
-				</div>
+				
+			@if (isset($value['lang']) && $value['lang'])
+				
+				@foreach (config('translatable.locales') as $lang)
+					@include('adminHelpers::inputs.textarea', ['lang' => $lang])
+				@endforeach
+
+			@else
+				@include('adminHelpers::inputs.textarea')
+			@endif
+
 		@endif
 
 		@if ($value['type'] == 'checkbox')
@@ -68,13 +74,14 @@
 	
 
 @if (isset($list['submit']) && $list['submit'])
-	<div class="form-position">
-		<div class="col-md-12 text-right">
-
+	<div class="form-position row">
+		<div class="col-md-6 text-left">
+			<a href="{{ redirect()->back()->getTargetUrl() }}" class="btn btn-secondary">{{ __('admin.helper.back') }}</a>
+		</div>
+		<div class="col-md-6 text-right">
 			<div class="form-group">
 				{!! Form::submit($list['submit']['title'], ['class' => $list['submit']['class']]) !!}
 			</div>
-			
 		</div>
 	</div>
 @endif

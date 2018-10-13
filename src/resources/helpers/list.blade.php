@@ -31,7 +31,6 @@
 @section($config['section'])
 
 <div class="helper-list">
-	@if (isset($data) && count($data) > 0)
 		
 		<div class="card card-primary table-tools">
 			<div class="card-header clearfix">
@@ -48,7 +47,7 @@
 						<th></th>
 						@foreach ($list as $input_name => $input)
 							<th>
-								@if (isset($input['orderby']) && $input['orderby'])
+								@if (!isset($input['orderby']) || $input['orderby'] == true || $input['orderby'] == 'true' )
 									<a href="{{ Request::url() }}?orderby={{ $input_name }}&orderway={{ Request::input('orderway') === 'asc' ? 'desc' : 'asc' }}">
 										{{ $input['title'] }}
 									</a>
@@ -80,6 +79,8 @@
 						
 						</tr>
 				</thead>
+
+				@if (isset($data) && count($data) > 0)
 				<tbody>
 					@foreach ($data as $key => $item)
 						<tr>
@@ -116,6 +117,15 @@
 						</tr>
 					@endforeach
 				</tbody>
+				@else
+					<tbody>
+						<tr>
+							<td colspan="{{ count($list)+2 }}">
+								<p class="text-center">{{ __('admin/helper/list.there is no items') }}</p>	
+							</td>
+						</tr>
+					</tbody>
+				@endif
 				</table>
 		    {!! Form::close() !!}
 
@@ -126,9 +136,7 @@
 
 		</div>
 		
-	@else
-		<p>{{ __('admin/helper/list.there is no items') }}</p>	
-	@endif
+	
 </div>
 @endsection
 

@@ -5,6 +5,7 @@ namespace Bestuniverse\AdminHelpers\Helpers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use App;
 
 
 class HelperList extends Helper
@@ -48,7 +49,7 @@ class HelperList extends Helper
 		$orderway = Input::get('orderway', 'asc');
 
 		$params = Input::except(array('orderby', 'orderway', 'page'));
-		$params = array_filter($params);
+		$params = array_filter($params, 'strlen');
 		unset($params['orderby']);
 		unset($params['orderway']);
 		if(!isset($params) || count($params) == 0)
@@ -59,21 +60,30 @@ class HelperList extends Helper
 		if(!$orderway)
 			$orderway = 'asc';
 
+
+		$where = [];
+		foreach ($params as $key => $param) {
+			$where[] = [$key, 'LIKE', '%'.$param.'%'];
+		}
+
 		if($this->lang) {
 
+			$where[] = ['locale',  App::getLocale() ];
 			$this->data = $this->instance
 				->join($this->model.'_translations as t', $this->model.'s.id', '=', 't.'.$this->model.'_id')  
 			    ->groupBy($this->model.'s.id')
 				->orderBy($orderby, $orderway)
-				->where($params)
+				->where($where)
 			    ->with('translations')
 				->paginate($this->items_per_page);
+			    // ->toSql();
+			    // dd($this->data);
 
 			
 		} else {
 			$this->data = $this->instance
 				->orderBy($orderby, $orderway)
-				->where($params)
+				->where($where)
 				->paginate($this->items_per_page);
 		}
 		
