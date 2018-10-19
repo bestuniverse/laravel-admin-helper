@@ -9,7 +9,7 @@ class Helper
 	public $table;
 	public $title;
 	public $model;
-	public $model_prefix = 'App\\';
+	public $model_prefix = 'App\\Models\\';
 	public $instance;
 	public $data = array();
 	public $lang;

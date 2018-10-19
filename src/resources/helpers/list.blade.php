@@ -30,6 +30,13 @@
 
 @section($config['section'])
 
+<style>
+	table.table tbody a
+	{
+	    display:block;
+	    text-decoration:none;
+	}
+</style>
 <div class="helper-list">
 		
 		<div class="card card-primary table-tools">
@@ -86,7 +93,9 @@
 						<tr>
 							<td><input type="checkbox" name="{{ $model }}_bulk[]" value="{{ $item->id }}"></td>
 						@foreach ($list as $input_name => $input)
-							<td>{{ $item->$input_name }}</td>
+							<td>
+								<a href="{{ route($model.'.show', $item->id) }}">{{ $item->$input_name }}</a>
+							</td>
 						@endforeach
 							<td>
 								{{-- view --}}
