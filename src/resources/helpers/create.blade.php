@@ -22,7 +22,7 @@
 			</div>
 			<div class="card-body">
 				
-                {!! Form::open(['url' => 'admin/'.$model, 'method' => 'post', 'class' => 'form-horizontal col-md-6', 'id' => 'create-'.$model.'-form']) !!}
+                {!! Form::open(['url' => 'admin/'.$model, 'method' => 'post', 'class' => 'form-horizontal row col-md-12', 'id' => 'create-'.$model.'-form']) !!}
 					
 					@include('adminHelpers::form')
 				
