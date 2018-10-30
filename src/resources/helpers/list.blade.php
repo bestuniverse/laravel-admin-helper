@@ -100,14 +100,14 @@
 							<td>
 								{{-- view --}}
 								@if (in_array('view', $actions))
-									<a target="_blank" href="{{ route($model.'.show', $item->id) }}" class="btn btn-secondary btn-sm float-left">
+									<a target="_self" href="{{ route($model.'.show', $item->id) }}" class="btn btn-secondary btn-sm float-left">
 										view
 									</a>
 								@endif
 
 								{{-- edit --}}
 								@if (in_array('edit', $actions))
-									<a target="_blank" href="{{ route($model.'.edit', $item->id) }}" class="btn btn-primary btn-sm float-left">
+									<a target="_self" href="{{ route($model.'.edit', $item->id) }}" class="btn btn-primary btn-sm float-left">
 										edit
 									</a>
 								@endif
